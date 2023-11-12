@@ -5,6 +5,7 @@ using UnityEngine;
 public class Delivery : MonoBehaviour
 {   
     bool hasPackage;
+    [SerializeField] float timeDestroy;
     private void OnCollisionEnter2D(Collision2D other)
     {
         // Debug.Log("You touch a Circle");
@@ -12,10 +13,12 @@ public class Delivery : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
-        if (other.tag == "Package")
+        if (other.tag == "Package" && !hasPackage)
         {
             Debug.Log("You picked a package");
             hasPackage=true;
+            Destroy(other.gameObject, timeDestroy);
+
         }
         if (other.tag=="LocationDelivery" && hasPackage == true)
         {
