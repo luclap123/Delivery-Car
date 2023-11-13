@@ -10,6 +10,7 @@ public class Delivery : MonoBehaviour
     [SerializeField] float timeDestroy;
     SpriteRenderer spriteRenderer;
     private void Start() {
+        // khi bắt đầu chạy Game, sẽ gọi đến Commpent SpriteRenderer
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
     private void OnCollisionEnter2D(Collision2D other)
@@ -19,18 +20,23 @@ public class Delivery : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        // kiểm tra xem có lướt qua package không
         if (other.tag == "Package" && !hasPackage)
         {
+            // thay đổi màu cho xe
             spriteRenderer.color = hasPackageColor;
             Debug.Log("You picked a package");
             hasPackage=true;
+            // làm biến mất package
             Destroy(other.gameObject, timeDestroy);
 
         }
+        // kiểm tra xem có lướt qua locationDelivery không
         if (other.tag=="LocationDelivery" && hasPackage == true)
         {
             Debug.Log("successfully picked a location");
             hasPackage=false;
+            // thay đổi màu cho xe
             spriteRenderer.color = hasNoPackageColor;
         }
     }

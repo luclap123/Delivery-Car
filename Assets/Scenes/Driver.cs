@@ -5,19 +5,35 @@ using UnityEngine;
 public class Driver : MonoBehaviour
 {
     [SerializeField] float steerSpeed = 1f;
-    [SerializeField] float moveSpeed = 0.1f;
+    [SerializeField] float moveSpeed = 13f;
+    [SerializeField] float upSpeed = 20f;
+    [SerializeField] float downSpeed = 7f;
     // Start is called before the first frame update
     void Start()
     {
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        float steerAmount = Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime ;
-        float moveAmount = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime ;
+        // làm cho xe di chuyển sang trái hoặc sang phải
+        float steerAmount = Input.GetAxis("Horizontal") * steerSpeed * Time.deltaTime;
+        // xe di chuyển tiến lên hoặc lùi xuống
+        float moveAmount = Input.GetAxis("Vertical") * moveSpeed * Time.deltaTime;
         transform.Rotate(0, 0, -steerAmount);
         transform.Translate(0, moveAmount, 0);
 
+    }
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "UpSpeed")
+        {
+            moveSpeed = upSpeed;
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        moveSpeed = downSpeed;
     }
 }
