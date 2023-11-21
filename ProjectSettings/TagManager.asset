@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Package
   - LocationDelivery
+  - UpSpeed
+  - ObjectWorld
   layers:
   - Default
   - TransparentFX
